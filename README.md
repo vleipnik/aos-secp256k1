@@ -2,18 +2,18 @@
 
 AOS-secp256k1 combines the ao operating system module and secp256k1 to create an ao custom module that enables ECDSA verifications. It leverages a battle-tested and highly optimized [secp256k1 library](https://github.com/bitcoin-core/secp256k1). Some of this work is inspired by the [AOS-SQLite module](https://github.com/permaweb/aos-sqlite) by @elliotsayes.
 
-AOS-secp256k1 Module - `TBD`
+AOS-secp256k1 Module - `RdkXb1okwtZFfgDJe96xDSPg4dMrHJtxGixUY6nZHOQ`
 
 Run a secp256k1 module with AOS(WASM64)
 
 ```sh
-aos my-secp256k1 --module=TBD
+aos my-secp256k1 --module=RdkXb1okwtZFfgDJe96xDSPg4dMrHJtxGixUY6nZHOQ
 ```
 
 ## Spawn via a process
 
 ```lua
-Spawn('TBD', { Data = "Hello secp256k1 Wasm64" })
+Spawn('RdkXb1okwtZFfgDJe96xDSPg4dMrHJtxGixUY6nZHOQ', { Data = "Hello secp256k1 Wasm64" })
 ```
 
 ## Examples
@@ -79,7 +79,7 @@ docker run --platform linux/arm64 -v .:/src p3rmaw3b/ao ao-build-module
 
 4. Publish Module with tags via arkb
 
-> You will need a funded wallet for this step 
+> You will need a funded wallet for this step. You can add Winc tokens for the [Turbo app](https://turbo-topup.com/) to do this. 
 
 ```sh
 npm install

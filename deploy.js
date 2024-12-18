@@ -1,4 +1,4 @@
-import { TurboFactory, ArweaveSigner } from '@ardrive/turbo-sdk';
+import { TurboFactory, ArweaveSigner, ETHToTokenAmount } from '@ardrive/turbo-sdk';
 import fs from "fs";
 import path from 'path';
 
@@ -9,7 +9,17 @@ const wallet = JSON.parse(
 
 const main = async () => {
   const signer = new ArweaveSigner(wallet);
+  const fileSize = fs.statSync(process.env.WALLET).size;
   const turbo = TurboFactory.authenticated({ signer });
+  const add = await turbo.signer.getNativeAddress();
+  console.log(add);
+  const balance = await turbo.getBalance();
+  console.log(balance);
+  const cost = await turbo.getUploadCosts({
+    bytes: [fileSize],
+  })
+  console.log(cost);
+
   const _file = path.resolve('./aos/process/process.wasm')
   const receipt = await turbo.uploadFile({
     fileSizeFactory: () => fs.statSync(_file).size,
