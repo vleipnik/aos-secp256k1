@@ -1,0 +1,7 @@
+[submodule "ao-secp256k1"]
+	path = ao-secp256k1
+	url = https://github.com/vleipnik/ao-secp256k1
+	branch = libsecp256k1
+[submodule "aos"]
+	path = aos
+	url = https://github.com/permaweb/aos
