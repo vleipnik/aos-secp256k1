@@ -2,18 +2,18 @@
 
 AOS-secp256k1 combines the ao operating system module and secp256k1 to create an ao custom module that enables ECDSA verifications. It leverages a battle-tested and highly optimized [secp256k1 library](https://github.com/bitcoin-core/secp256k1). Some of this work is inspired by the [AOS-SQLite module](https://github.com/permaweb/aos-sqlite) by @elliotsayes.
 
-AOS-secp256k1 Module - `RdkXb1okwtZFfgDJe96xDSPg4dMrHJtxGixUY6nZHOQ`
+AOS-secp256k1 Module - `5JfE3UH56N6-BfVDLZY5FXyffY9STf8vx_ED9aqt9VY`
 
 Run a secp256k1 module with AOS(WASM64)
 
 ```sh
-aos my-secp256k1 --module=RdkXb1okwtZFfgDJe96xDSPg4dMrHJtxGixUY6nZHOQ
+aos my-secp256k1 --module=5JfE3UH56N6-BfVDLZY5FXyffY9STf8vx_ED9aqt9VY
 ```
 
 ## Spawn via a process
 
 ```lua
-Spawn('RdkXb1okwtZFfgDJe96xDSPg4dMrHJtxGixUY6nZHOQ', { Data = "Hello secp256k1 Wasm64" })
+Spawn('5JfE3UH56N6-BfVDLZY5FXyffY9STf8vx_ED9aqt9VY', { Data = "Hello secp256k1 Wasm64" })
 ```
 
 ## Examples
