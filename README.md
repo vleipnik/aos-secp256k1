@@ -61,7 +61,7 @@ git submodule update --remote
 cd ao-secp256k1/dev-cli/container
 git submodule init
 git submodule update --remote
-cd ../../..
+cd ../..
 ```
 
 2. Build docker image
@@ -69,6 +69,7 @@ cd ../../..
 ```sh
 cd ao-secp256k1/dev-cli/container
 docker build --progress=plain . -t p3rmaw3b/ao --platform linux/arm64
+cd ../../..
 ```
 
 3. Use docker image to compile process.wasm
