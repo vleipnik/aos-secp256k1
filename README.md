@@ -77,6 +77,7 @@ cd ../../..
 ```sh
 cd aos/process
 docker run --platform linux/arm64 -v .:/src p3rmaw3b/ao ao-build-module
+cd ../..
 ```
 
 4. Publish Module with tags via arkb
