@@ -53,18 +53,21 @@ This project builds the AOS-secp256k1 WASM Binary and Publishes it to Arweave.
 
 ## Build Process
 
-1. Build docker image
-
-```sh
-cd ao-secp256k1/dev-cli/container
-docker build --progress=plain . -t p3rmaw3b/ao --platform linux/arm64
-```
-
-2. Get Latest aos module
+1. Fetch the submodules
 
 ```sh
 git submodule init
 git submodule update --remote
+cd ao-secp256k1/dev-cli/container
+git submodule init
+git submodule update --remote
+```
+
+2. Build docker image
+
+```sh
+cd ao-secp256k1/dev-cli/container
+docker build --progress=plain . -t p3rmaw3b/ao --platform linux/arm64
 ```
 
 3. Use docker image to compile process.wasm
@@ -79,6 +82,7 @@ docker run --platform linux/arm64 -v .:/src p3rmaw3b/ao ao-build-module
 > You will need a funded wallet for this step 
 
 ```sh
+npm install
 export WALLET=~/.wallet.json
 npm run deploy
 ```
