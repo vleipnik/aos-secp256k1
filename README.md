@@ -61,6 +61,7 @@ git submodule update --remote
 cd ao-secp256k1/dev-cli/container
 git submodule init
 git submodule update --remote
+cd ../../..
 ```
 
 2. Build docker image
