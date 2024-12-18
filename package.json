@@ -1,0 +1,17 @@
+{
+    "name": "aos-secp256k1",
+    "type": "module",
+    "version": "1.0.0",
+    "main": "index.js",
+    "repository": "https://github.com/vleipnik/aos-secp256k1",
+    "author": "Victor Leipnik <vic@sobol.io>",
+    "license": "MIT",
+    "scripts": {
+      "deploy": "node deploy.js"
+    },
+    "devDependencies": {
+      "@ar.io/sdk": "^2.0.2",
+      "@ardrive/turbo-sdk": "^1.9.0",
+      "@irys/sdk": "^0.1.24"
+    }
+  }
