@@ -2,9 +2,9 @@
 
 AOS-secp256k1 combines the ao operating system module and secp256k1 to create an ao custom module that enables ECDSA verifications. It leverages a battle-tested and highly optimized [secp256k1 library](https://github.com/bitcoin-core/secp256k1). Some of this work is inspired by the [AOS-SQLite module](https://github.com/permaweb/aos-sqlite) by @elliotsayes.
 
-AOS-SQLite Module - `TBD`
+AOS-secp256k1 Module - `TBD`
 
-Run a SQLite Database with AOS(WASM64)
+Run a secp256k1 module with AOS(WASM64)
 
 ```sh
 aos my-secp256k1 --module=TBD
