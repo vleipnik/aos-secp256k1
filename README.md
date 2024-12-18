@@ -6,41 +6,54 @@ AOS-secp256k1 Module - `5JfE3UH56N6-BfVDLZY5FXyffY9STf8vx_ED9aqt9VY`
 
 Run a secp256k1 module with AOS(WASM64)
 
+## Spawn a process via `aos` CLI
 ```sh
 aos my-secp256k1 --module=5JfE3UH56N6-BfVDLZY5FXyffY9STf8vx_ED9aqt9VY
 ```
 
-## Spawn via a process
+## OR spawn a process via `aos` console
 
 ```lua
 Spawn('5JfE3UH56N6-BfVDLZY5FXyffY9STf8vx_ED9aqt9VY', { Data = "Hello secp256k1 Wasm64" })
 ```
 
-## Examples
+## Sample Usage
 
+Given the following `sample.lua`:
 ```lua
-local message = "hello";
-local signature_der = "3045022100a71d86190354d64e5b3eb2bd656313422cdf7def69bf3669cdbfd09a9162c96e0220713b81f3440bff0b639d2f29b2c48494b812fa89b754b7b6cdc9eaa8027cf369";
-local public_key = "02477ce3b986ab14d123d6c4167b085f4d08c1569963a0201b2ffc7d9d6086d2f3";
+Handlers.add(
+  "VerifySig",
+  Handlers.utils.hasMatchingTag("Action", "VerifySig"),
+  function (msg)
+    local data = msg.Data
+    local message, signature_der, public_key = data.message, data.signature_der, data.public_key
 
-local is_valid = verify_signature(message, signature_der, public_key)
+    local is_valid = verify_signature(message, signature_der, public_key)
 
-print("Message: " .. message)
-print("Signature Verification Result: " .. (is_valid and "VALID" or "INVALID"))
+    print("Message: " .. message)
+    print("Signature Verification Result: " .. (is_valid and "VALID" or "INVALID"))
 
+    ao.send({ Target = msg.From, Action = "Create-Result", Data = { is_valid = is_valid }})
+  end
+)
 ```
 
+Add event-handling logic to your process via `aos` console:
 ```lua
-local message = "bye";
-local signature_der = "3045022100a71d86190354d64e5b3eb2bd656313422cdf7def69bf3669cdbfd09a9162c96e0220713b81f3440bff0b639d2f29b2c48494b812fa89b754b7b6cdc9eaa8027cf369";
-local public_key = "02477ce3b986ab14d123d6c4167b085f4d08c1569963a0201b2ffc7d9d6086d2f3";
-
-local is_valid = verify_signature(message, signature_der, public_key)
-
-print("Message: " .. message)
-print("Signature Verification Result: " .. (is_valid and "VALID" or "INVALID"))
-
+.load sample.lua
 ```
+
+
+Now you can send sample inputs via messages. A valid signature example:
+```lua
+Send({ Target='<your process ID>', Action='VerifySig', Data={ message='hello', signature_der='3045022100a71d86190354d64e5b3eb2bd656313422cdf7def69bf3669cdbfd09a9162c96e0220713b81f3440bff0b639d2f29b2c48494b812fa89b754b7b6cdc9eaa8027cf369', public_key='02477ce3b986ab14d123d6c4167b085f4d08c1569963a0201b2ffc7d9d6086d2f3' } })
+```
+
+Invalid signature example:
+```lua
+Send({ Target='<your process ID>', Action='VerifySig', Data={ message='bai', signature_der='3045022100a71d86190354d64e5b3eb2bd656313422cdf7def69bf3669cdbfd09a9162c96e0220713b81f3440bff0b639d2f29b2c48494b812fa89b754b7b6cdc9eaa8027cf369', public_key='02477ce3b986ab14d123d6c4167b085f4d08c1569963a0201b2ffc7d9d6086d2f3' } }
+```
+
 
 ## AO Resources
 
