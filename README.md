@@ -2,19 +2,19 @@
 
 AOS-secp256k1 combines the ao operating system module and secp256k1 to create an ao custom module that enables ECDSA verifications. It leverages a battle-tested and highly optimized [secp256k1 library](https://github.com/bitcoin-core/secp256k1). Some of this work is inspired by the [AOS-SQLite module](https://github.com/permaweb/aos-sqlite) by @elliotsayes.
 
-AOS-secp256k1 Module - `5JfE3UH56N6-BfVDLZY5FXyffY9STf8vx_ED9aqt9VY`
+AOS-secp256k1 Module - `IlqppmLdIBssZtmY5TlPwTzFUZLkDEhT7aaqoyCrw3A`
 
 Run a secp256k1 module with AOS(WASM64)
 
 ## Spawn a process via `aos` CLI
 ```sh
-aos my-secp256k1 --module=5JfE3UH56N6-BfVDLZY5FXyffY9STf8vx_ED9aqt9VY
+aos my-secp256k1 --module=IlqppmLdIBssZtmY5TlPwTzFUZLkDEhT7aaqoyCrw3A
 ```
 
 ## OR spawn a process via `aos` console
 
 ```lua
-Spawn('5JfE3UH56N6-BfVDLZY5FXyffY9STf8vx_ED9aqt9VY', { Data = "Hello secp256k1 Wasm64" })
+Spawn('IlqppmLdIBssZtmY5TlPwTzFUZLkDEhT7aaqoyCrw3A', { Data = "Hello secp256k1 Wasm64" })
 ```
 
 ## Sample Usage
@@ -26,9 +26,9 @@ Handlers.add(
   Handlers.utils.hasMatchingTag("Action", "VerifySig"),
   function (msg)
     local data = msg.Data
-    local message, signature_der, public_key = data.message, data.signature_der, data.public_key
+    local message, signature, public_key = data.message, data.signature, data.public_key
 
-    local is_valid = verify_signature(message, signature_der, public_key)
+    local is_valid = verify_signature(message, signature, public_key)
 
     print("Message: " .. message)
     print("Signature Verification Result: " .. (is_valid and "VALID" or "INVALID"))
@@ -46,12 +46,12 @@ Add event-handling logic to your process via `aos` console:
 
 Now you can send sample inputs via messages. A valid signature example:
 ```lua
-Send({ Target='<your process ID>', Action='VerifySig', Data={ message='hello', signature_der='3045022100a71d86190354d64e5b3eb2bd656313422cdf7def69bf3669cdbfd09a9162c96e0220713b81f3440bff0b639d2f29b2c48494b812fa89b754b7b6cdc9eaa8027cf369', public_key='02477ce3b986ab14d123d6c4167b085f4d08c1569963a0201b2ffc7d9d6086d2f3' } })
+Send({ Target='<your process ID>', Action='VerifySig', Data={ message='hello', signature='3045022100a71d86190354d64e5b3eb2bd656313422cdf7def69bf3669cdbfd09a9162c96e0220713b81f3440bff0b639d2f29b2c48494b812fa89b754b7b6cdc9eaa8027cf369', public_key='02477ce3b986ab14d123d6c4167b085f4d08c1569963a0201b2ffc7d9d6086d2f3' } })
 ```
 
 Invalid signature example:
 ```lua
-Send({ Target='<your process ID>', Action='VerifySig', Data={ message='bai', signature_der='3045022100a71d86190354d64e5b3eb2bd656313422cdf7def69bf3669cdbfd09a9162c96e0220713b81f3440bff0b639d2f29b2c48494b812fa89b754b7b6cdc9eaa8027cf369', public_key='02477ce3b986ab14d123d6c4167b085f4d08c1569963a0201b2ffc7d9d6086d2f3' } }
+Send({ Target='<your process ID>', Action='VerifySig', Data={ message='bai', signature='3045022100a71d86190354d64e5b3eb2bd656313422cdf7def69bf3669cdbfd09a9162c96e0220713b81f3440bff0b639d2f29b2c48494b812fa89b754b7b6cdc9eaa8027cf369', public_key='02477ce3b986ab14d123d6c4167b085f4d08c1569963a0201b2ffc7d9d6086d2f3' } }
 ```
 
 
