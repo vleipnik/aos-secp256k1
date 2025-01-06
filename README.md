@@ -19,39 +19,35 @@ Spawn('IlqppmLdIBssZtmY5TlPwTzFUZLkDEhT7aaqoyCrw3A', { Data = "Hello secp256k1 W
 
 ## Sample Usage
 
-Given the following `sample.lua`:
-```lua
-Handlers.add(
-  "VerifySig",
-  Handlers.utils.hasMatchingTag("Action", "VerifySig"),
-  function (msg)
-    local data = msg.Data
-    local message, signature, public_key = data.message, data.signature, data.public_key
-
-    local is_valid = verify_signature(message, signature, public_key)
-
-    print("Message: " .. message)
-    print("Signature Verification Result: " .. (is_valid and "VALID" or "INVALID"))
-
-    ao.send({ Target = msg.From, Action = "Create-Result", Data = { is_valid = is_valid }})
-  end
-)
-```
-
-Add event-handling logic to your process via `aos` console:
+With the local `sample.lua` file, add event-handling logic to your process via `aos` console:
 ```lua
 .load sample.lua
 ```
 
+Now you can send sample inputs via messages.
 
-Now you can send sample inputs via messages. A valid signature example:
+A valid signature example:
 ```lua
 Send({ Target='<your process ID>', Action='VerifySig', Data={ message='hello', signature='3045022100a71d86190354d64e5b3eb2bd656313422cdf7def69bf3669cdbfd09a9162c96e0220713b81f3440bff0b639d2f29b2c48494b812fa89b754b7b6cdc9eaa8027cf369', public_key='02477ce3b986ab14d123d6c4167b085f4d08c1569963a0201b2ffc7d9d6086d2f3' } })
 ```
 
-Invalid signature example:
+An invalid signature example:
 ```lua
 Send({ Target='<your process ID>', Action='VerifySig', Data={ message='bai', signature='3045022100a71d86190354d64e5b3eb2bd656313422cdf7def69bf3669cdbfd09a9162c96e0220713b81f3440bff0b639d2f29b2c48494b812fa89b754b7b6cdc9eaa8027cf369', public_key='02477ce3b986ab14d123d6c4167b085f4d08c1569963a0201b2ffc7d9d6086d2f3' } }
+```
+
+Valid JWT examples:
+```lua
+Send({ Target='<your process ID>', Action='VerifyJwt', Data='eyJhbGciOiJFUzI1NksiLCJ0eXAiOiJKV1QifQ.eyJ2YyI6eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvMjAxOC9jcmVkZW50aWFscy92MSJdLCJ0eXBlIjpbIlZlcmlmaWFibGVDcmVkZW50aWFsIl0sImNyZWRlbnRpYWxTdWJqZWN0Ijp7InlvdSI6IlJvY2sifX0sInN1YiI6ImRpZDp3ZWI6ZXhhbXBsZS5jb20iLCJuYmYiOjE3MzQwMjgzMjIsImlzcyI6ImRpZDpldGhyOnNlcG9saWE6MHgwMmM2M2VmZTNkYzcwN2Y2ZTNkMzIzZjExZTQwY2YwNzU3OGIyYWI5YWVlMTYzNWU2ZWU2NzZmNmRhMDlmMTU5OGQifQ.VEHlsQ7rF5Z5lDuQPZjSp2Tsd-QM0tSB5SWBmE_jZpobbzDaKg1GPoAtZLBeoWwdNfjTxiyhyY08iYw3mCV4rg' })
+```
+
+```lua
+Send({ Target='<your process ID>', Action='VerifyJwt', Data='eyJhbGciOiJFUzI1NksiLCJ0eXAiOiJKV1QifQ.eyJ2YyI6eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvMjAxOC9jcmVkZW50aWFscy92MSJdLCJ0eXBlIjpbIlZlcmlmaWFibGVDcmVkZW50aWFsIl0sImNyZWRlbnRpYWxTdWJqZWN0Ijp7InlvdSI6IlJvY2sifX0sInN1YiI6ImRpZDp3ZWI6ZXhhbXBsZS5jb20iLCJuYmYiOjE3MzQwMjg3ODAsImlzcyI6ImRpZDpldGhyOnNlcG9saWE6MHgwMmM2M2VmZTNkYzcwN2Y2ZTNkMzIzZjExZTQwY2YwNzU3OGIyYWI5YWVlMTYzNWU2ZWU2NzZmNmRhMDlmMTU5OGQifQ.VEHlsQ7rF5Z5lDuQPZjSp2Tsd-QM0tSB5SWBmE_jZppghPpee_pZyzigqsUCeWV9J0rt8SI2oS7uhjm1JaLrww' })
+```
+
+An invalid JWT example:
+```lua
+Send({ Target='<your process ID>', Action='VerifyJwt', Data='eyJhbGciOiJFUzI1NksiLCJ0eXAiOiJKV1QifQ.eyJ2YyI6eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvMjAxOC9jcmVkZW50aWFscy92MSJdLCJ0eXBlIjpbIlZlcmlmaWFibGVDcmVkZW50aWFsIl0sImNyZWRlbnRpYWxTdWJqZWN0Ijp7InlvdSI6IlJvY2tzb3JzIn19LCJzdWIiOiJkaWQ6d2ViOmV4YW1wbGUuY29tIiwibmJmIjoxNzM0MDI4MzIyLCJpc3MiOiJkaWQ6ZXRocjpzZXBvbGlhOjB4MDJjNjNlZmUzZGM3MDdmNmUzZDMyM2YxMWU0MGNmMDc1NzhiMmFiOWFlZTE2MzVlNmVlNjc2ZjZkYTA5ZjE1OThkIn0=.VEHlsQ7rF5Z5lDuQPZjSp2Tsd-QM0tSB5SWBmE_jZpobbzDaKg1GPoAtZLBeoWwdNfjTxiyhyY08iYw3mCV4rg' })
 ```
 
 
