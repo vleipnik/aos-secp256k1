@@ -89,7 +89,7 @@ docker run --platform linux/arm64 -v .:/src p3rmaw3b/ao ao-build-module
 cd ../..
 ```
 
-4. Publish Module with tags via arkb
+4. Publish Module with tags via Turbo
 
 > You will need a funded wallet for this step. You can add Winc tokens for the [Turbo app](https://turbo-topup.com/) to do this. 
 
